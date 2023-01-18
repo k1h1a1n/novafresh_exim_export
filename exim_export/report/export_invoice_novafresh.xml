@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="novafresh_export_invoice_report_id_template">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+               <div t-foreach="data" t-as="o">
+                <table>
+                    <tr>
+                        <th rowspan="2" colspan="6">
+                                <div>Exporter</div>
+                                <div><span t-field="o.company_id"/></div>
+
+                                <div><span t-field="o.company_id.street"/> </div>
+                                <div><span t-field="o.company_id.street2"/></div>
+                                <div><span t-field="o.company_id.city"/></div>
+                                <div><span t-field="o.company_id.state_id"/></div>
+                                <div>GST IN NO: <span t-field="o.company_id.vat"/></div>
+                        </th>
+                        <td colspan="6">
+                            <div style="padding:20px 0px">
+                                <![CDATA[Invoice No. & Date :]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <b> <span t-field="o.name"/> </b><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                <b>DT: <span t-field="o.invoice_date"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6">
+                            <div>Exporter Ref :                                                                                                                                         <![CDATA[&nbsp;]]>
+                                <b><span t-field="o.company_id.partner_id.ref"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="4" colspan="6">
+                            <div>Consignee</div>
+                            <div>
+                                <b>TO ORDER OF</b>
+                            </div>
+                            <div>
+                                <b>NATIONAL BANK OF OMAN</b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6">
+                            <div style="padding: 5px 0px;">Other reference(s)</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6">
+                            <div>
+                                <b>Buyer</b>
+                            </div>
+                            <div>
+                               <span t-field="o.partner_id.name"/>
+                            </div>
+                            <div>
+                                <b><span t-field="o.partner_id.street"/></b>
+                            </div>
+                            <div>
+                                <b><span t-field="o.partner_id.street2"/></b>
+                            </div>
+                             <div>
+                                <span t-field="o.partner_id.city"/>
+                            </div>
+                            <div>
+                                <span t-field="o.partner_id.state_id"/>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <div>
+          Country of Origin of Goods
+                            </div>
+                            <div style="text-align: center;">
+             <b><span t-field="o.company_id.country_id"/></b>
+                            </div>
+                        </td>
+                        <td colspan="3">
+                            <div>
+          Country of Final Destination
+                            </div>
+                            <div style="text-align: center;">
+                        <b><span t-field="o.partner_id.country_id"/></b>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="1" colspan="2">
+                            <div>Pre-Carriage</div>
+                            <div>
+          BY SEA
+                            </div>
+                        </td>
+                        <td rowspan="1" colspan="4">
+                            <div>
+          Place of Receipt by Pre-Carrier
+                            </div>
+                        </td>
+                        <td rowspan="3" colspan="6">
+                            <div style="padding-bottom: 20px;">Terms of Delivery and Payment</div>
+                            <!-- <div>DA 30 DAYS</div>
+                            <div>(INCOTERMS 2020) CFR : SOHAR</div>
+                            <div>
+                                <b>SEA-FREIGHT USD : 1700 USD</b>
+                            </div> -->
+                            <div>
+                                 <b><span t-field="o.narration"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <div><![CDATA[Vessel Name & Voy.]]></div>
+                            <div>
+
+                            </div>
+                        </td>
+                        <td colspan="3">
+                            <div>Port of Loading</div>
+                            <div>
+                              <b><span t-field="o.export_lot.ports"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <div>Port of Discharge</div>
+                            <div>
+                            <b><span t-field="o.export_lot.port_of_discharge"/></b>
+                            </div>
+                        </td>
+                        <td colspan="3">
+                            <div>Final Destination</div>
+                            <div>
+                                <b><span t-field="o.export_lot.port_of_discharge"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div><![CDATA[Marks & Nos.]]></div>
+                        </td>
+                        <td>
+                            <div><![CDATA[No. & Kind pkgs]]></div>
+                        </td>
+                        <td colspan="5">
+                            <div>Description of Goods</div>
+                        </td>
+                        <td>
+                            <div>Quantity IN KGS</div>
+                        </td>
+                        <td>
+                            <div>Rate per KGS</div>
+                        </td>
+                        <td>
+                            <div>Amount IN US $</div>
+                        </td>
+                    </tr>
+                    <tr>
+                    
+                        <td>
+                            <div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                          <div t-foreach="packing" t-as="p">
+                            <div t-foreach="o.invoice_line_ids" t-as="data">
+                                 <t t-if="data.product_id">
+                                    <b><span t-field="data.packing"/> Boxes</b>
+                                 </t>
+                                  <t t-if="not data.product_id">
+                                    <div style="padding-top: 8px;">  </div>
+                                </t>
+                            </div>
+                          </div>
+                        </td>
+                        <td colspan="5">
+                            <!-- <div style="padding-top: 8px;">01 X 40 REEFER CONTAINER </div>
+                            <div style="text-align: center;padding-top: 8px;">
+                                <b>TOTAL BOXES :                                                                         <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]> 2700 </b>
+                            </div>
+                            <div style="padding-top: 8px;">
+                                <b>INDIAN FRESH GREEN CAVENDISH BANANA</b>
+                            </div>
+                            <div style="padding-top: 8px;">PACKED IN CORROUGATED BOXES IN 6.500 KGS</div>
+                            <div style="padding-top: 8px;"><![CDATA[NET & 7.800 KGS GROSS EACH BOXES.]]></div>
+                            <div style="padding-top: 10px;">H.S.CODE :08039010</div>
+                            <div style="padding-top: 15px;">
+                                <b>LUT NO. AD270322067339Y DATE: 25/03/2022</b>
+                            </div>
+                            <div style="padding-top: 15px;">
+                                <b>WE INTEND TO CLAIM REWARDS UNDER REMISSION OF DUTIES AND TAXES OF EXPORTED PRODUCTS (RODTEP)</b>
+                            </div> -->
+                            <div t-foreach="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" t-as="data">
+                                <t t-if="data.product_id">
+
+                                    <div  style="padding-top: 8px;"> <span t-field="data.product_id"/></div>
+
+                                </t>
+                                <t t-if="not data.product_id">
+                                    <div style="padding-top: 8px;"> <span t-field="data.name"/> </div>
+                                </t>
+
+                                <!-- <div  t-if="data.product_id" style="padding-top: 8px;"> <span t-field="data.product_id"/></div>
+                                <div  t-if="data.name" style="padding-top: 8px;"> <span t-field="data.name"/> </div> -->
+                            </div>
+                        </td>
+
+                        <td>
+                            <div t-foreach="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" t-as="data">
+                                 <t t-if="data.product_id">
+                                    <b><span t-field="data.quantity"/></b>
+                                 </t>
+                                  <t t-if="not data.product_id">
+                                    <div style="padding-top: 8px;">  </div>
+                                </t>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div t-foreach="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" t-as="data">
+                                    <t t-if="data.product_id">
+                                        <b><span t-field="data.price_unit"/></b>
+                                    </t>
+                                    <t t-if="not data.product_id">
+                                        <div style="padding-top: 8px;">  </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <div t-foreach="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)" t-as="data">
+                                    <t t-if="data.product_id">
+                                        <b><span t-field="data.price_subtotal"/></b>
+                                    </t>
+                                    <t t-if="not data.product_id">
+                                        <div style="padding-top: 8px;">  </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="border-right:none">
+                            <div>
+                                <div>
+            AMOUNT IN WORDS:
+                                </div>
+                            </div>
+                        </td>
+                        <td style="border-left:none">
+                            <div>
+                TOTAL USD
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <b><span t-field="o.amount_total"/></b>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            <div style="padding-bottom: 5px;letter-spacing: 1px;">
+                               <b><span t-esc="o.currency_id.amount_to_text(o.amount_total)"/></b>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th rowspan="2" colspan="6" style="border-right: none;">
+                        <div >
+                            <div style="padding-top: 8px;">
+                                <b>EXPORTS UNDER DBK SCHEME.</b>
+                            </div>
+                            <div style="padding: 15px 0px;font-size: 14px;letter-spacing: 1px;">Bank Details</div>
+                            <div>
+                                <div>
+                                    <label>Name of Bank</label>  <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.company_id.partner_id.bank_name"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>Address</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.company_id.partner_id.bank_address"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>Swift Code</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.company_id.partner_id.swift_code"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>AD Code</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.company_id.partner_id.ad_code"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>IFSC CODE</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span t-field="o.company_id.partner_id.ifsc_code"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>A/C No. </label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>  <span t-field="o.company_id.partner_id.ac_no"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>Decleration</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span> We declare that this Invoice shows the actual price of the goods described and that all particulars are true and correct</span>
+                                </div>
+                            </div>
+                         </div >
+                        </th>
+                        <td colspan="6" style="border-left: none; padding-left: 50px;padding-top:20px">
+
+                            <div>
+                                <div t-foreach="packing" t-as="p">
+                                    <label>TOTAL </label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <b><span t-esc="p['packing']"/> Boxes</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div  t-foreach="packing" t-as="p">
+                                    <label>TOTAL NET WT </label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]><b><span t-esc="p['net_wt']"/> KGS</b>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div t-foreach="packing" t-as="p">
+                                    <label>TOTAL GROSS WT.</label> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <span>:</span> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]><b><span t-esc="p['gross_wt']"/> KGS</b>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <div style="padding:0px 0px 45px 0px">Authorised Signatory :</div>
+                        </td>
+                    </tr>
+
+                </table>
+             </div>
+
+            </t>
+         
+        </t>
+    </template>
+
+    <template id="invoice_report_inherited_novaexport_scss" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/exim_export/static/src/css/export_report.scss"></link>
+        </xpath>
+    </template>
+</odoo>
+

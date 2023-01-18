@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+    <record id="exim_port_terminals" model="ir.ui.view">
+        <field name="name">exim.export.terminal</field>
+        <field name="model">configuration.port.child</field>
+        <field name="inherit_id" ref="exim.ports_view_child_form"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='port']" position="after">
+                <field name="terminals" widget="one2many_list">
+                    <tree>
+                        <field name="port_name" />
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="export_terminal_conf_view_form" model="ir.ui.view">
+        <field name="name">Terminal</field>
+        <field name="model">configuration.terminal.child</field>
+        <field name="arch" type="xml"> 
+            <form>
+                    <group>
+                        <field name="port_name"/>
+                    </group>
+            </form>
+        </field> 
+    </record>
+
+
+</odoo>

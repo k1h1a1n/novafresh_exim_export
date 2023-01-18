@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-extend="UserMenu.Actions">
+        <t t-jquery="a[data-menu='documentation']" t-operation='replace'>
+            
+        </t>
+        <t t-jquery="a[data-menu='support']" t-operation='replace'>
+            
+        </t>
+        <t t-jquery="a[data-menu='settings']" t-operation='replace'>
+            
+        </t>
+        <t t-jquery="a[data-menu='account']" t-operation='replace'>
+            
+        </t>
+    </t>
+    <t t-extend="Dialog">
+        <t t-jquery="h4[class='modal-title']" t-operation='replace'>
+                    <h4 class="modal-title">BERM</h4>
+        </t>
+       
+    </t>
+</template>
+
+

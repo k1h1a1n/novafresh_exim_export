@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sales Order -->
+    <record id='export_sale_order_view' model='ir.actions.act_window'>
+        <field name="name">Sales Order</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="exim_product_inherits" model="ir.ui.view">
+        <field name="name">sale.order.export</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='preview_sale_order']" position="replace">
+                <button class="oe_stat_button"
+                    name="action_view_lots"
+                    type="object" icon="fa-book"
+                    attrs="{'invisible':[('state','not in',('sale'))]}"
+                >
+                    <field
+                        name="lot_count"
+                        widget="statinfo" />
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button class="oe_stat_button"
+                    name="action_view_shipment"
+                    type="object" icon="fa-book"
+                    attrs="{'invisible':[('state','not in',('sale'))]}"
+                >
+                    <field
+                        name="shipment_count"
+                        widget="statinfo" />
+                </button>
+
+                <button class="oe_stat_button"
+                    name="action_view_costing"
+                    type="object" icon="fa-book"
+                    attrs="{'invisible':[('state','not in',('sale'))]}"
+                    string="Costing"
+                >
+                </button>
+
+               
+            </xpath>
+
+            <xpath expr="//tree//field[@name='qty_invoiced']" position="before">
+                <field name="gross_wt" />
+                <field name="packing" />
+            </xpath>
+            <xpath expr="//tree//field[@name='product_uom_qty']" position="replace">
+                <field string="Net wt" name="product_uom_qty" decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')" context="{                                             'partner_id': parent.partner_id,                                             'quantity': product_uom_qty,                                             'pricelist': parent.pricelist_id,                                             'uom': product_uom,                                             'company_id': parent.company_id                                         }" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Costing -->
+
+    <record id='sale_order_costing_view' model='ir.actions.act_window'>
+        <field name="name">Costing</field>
+        <field name="res_model">sale.order.costing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="costing_view_form" model="ir.ui.view">
+        <field name="name">Costing</field>
+        <field name="model">sale.order.costing</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="so_id" />
+                    </group>
+                    <notebook colspan="4">
+                       
+                        <page string="Transporting Cost">
+                            <field name="transports" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="account_move_id"/>
+                                    <field name="container"/>
+                                    <field name="weight"  sum="Total"/>
+                                    <field name="container_pickup_time" />
+                                    <field name="actual_gatein_time" />
+                                    <field name="container_pickup_time_diff" />
+                                    <field name="gate_in_time" />
+                                    <field name="vessel_load_time" />
+                                    <field name="vessel_time_diff" />
+                                    <field name="transporter_name"/>
+                                    <field name="transporter_charges"  sum="Total"/>
+                                    <field name="bill_no"/>
+                                    <field name="vehicle_no"/>
+                                    <field name="paid"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_transporting_cost" />
+                                 <field name="per_kg_cost" />  
+                                  <field name="per_pack_cost" />        
+                               
+
+                                
+                        </group>
+                        </page>
+                        <page string="Shipping">
+                            <group style="width:50%;">
+                                <!-- <field name="shipping_line_cost" /> -->
+                                <field name="shipping_line" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="freight" />
+                                <field name="bill_no" />
+                            </group>  
+                            <group style="width:50%;">
+                                <field name="shipping_line_paid"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_shipping_cost" />
+                                <field name="per_kg_cost" />
+                                <field name="per_pack_cost" />                                
+                                
+                            </group>     
+                            
+                           
+                        </page>
+                        <page string="CHA">
+                            <group style="width:50%;">
+                                <field name="cha"/>
+                                <field name="cha_cost"/>
+                            </group>
+                            <group style="width:50%;">
+                                <field name="cha_bill_no"/>
+                            </group>
+                            <group style="width:50%;">
+                                <field name="cha_paid"/>
+                            </group>  
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_shipping_cost" />
+                                <field name="per_kg_cost" />  
+                                <field name="per_pack_cost" />                                
+                            </group>  
+                        </page>
+                        <page string="Inspection Agency">
+                            <group style="width:50%;">
+                                <field name="inspection_agency"/>
+                                <field name="inspection_cost"/>
+                            </group>
+                            <group style="width:50%;">
+                                <field name="inspection_bill_no"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_shipping_cost" />
+                                <field name="per_kg_cost" />
+                                <field name="per_pack_cost" />                                
+                            
+                            </group>   
+                        </page>
+                        <page string="Test Report">
+                            <group style="width:50%;">
+                                <field name="test_report"/>
+                                <field name="test_cost"/>
+                            </group>
+                            <group style="width:50%;">
+                                <field name="test_bill_no"/>
+                            </group> 
+                            <group style="width:50%;">
+                                <field name="test_paid"/>
+                            </group>   
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_shipping_cost" />
+                                <field name="per_kg_cost" />  
+                                <field name="per_pack_cost" />                                
+                             </group>
+                        </page>
+
+
+                    </notebook>
+                    <!-- <group class="oe_subtotal_footer oe_right">
+                    </group>    
+                     -->
+
+                </sheet>
+                <div class="o_attachment_preview" options="{types: ['image', 'pdf'], 'order': 'desc'}" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                    <field name="activity_ids" widget="mail_activity" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="costing_view_tree" model="ir.ui.view">
+        <field name="name">Costing</field>
+        <field name="model">sale.order.costing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="so_id"/>                
+            </tree>
+        </field>
+    </record>
+
+    <!-- Costing end -->
+
+
+
+    <record id="export_invoice_inherit" model="ir.ui.view">
+        <field name="name">account.move.export</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//sheet//div[@name='button_box']" position="after">
+                
+                <div class="oe_button_box" name="button_box">
+                <button attrs="{'invisible':[('state','=','draft')]}"  string="DBK" class="oe_stat_button" 
+                            name="action_view_dbk"
+                            type="object" icon="fa-book" 
+                           >     
+                    </button>
+                    <button attrs="{'invisible':[('state','=','draft')]}"  string="Shipment" class="oe_stat_button" 
+                            name="action_view_shipment"
+                            type="object" icon="fa-book" 
+                           >     
+                    </button>
+                </div>
+        </xpath>
+        <xpath expr="//button[@name='preview_invoice']" position="replace">
+                
+        </xpath>
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                    <field name="export_lot"/>
+            </xpath>
+            <xpath expr="//tree//field[@name='quantity']" position="after">
+                <field name="gross_wt"/>
+                <field name="packing"/>
+            </xpath>
+        </field>    
+    </record>
+
+</odoo>

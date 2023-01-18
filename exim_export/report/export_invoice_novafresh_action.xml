@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="export_report_result_789674" model="ir.actions.report">
+        <field name="name">Novafresh Export</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">exim_export.novafresh_export_invoice_report_id_template</field>
+        <field name="report_file">exim_export.novafresh_export_invoice_report_id_template</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

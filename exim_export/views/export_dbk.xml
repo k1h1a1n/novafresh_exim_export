@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id='export_dbk_action' model='ir.actions.act_window'>
+        <field name="name">DBK</field>
+        <field name="res_model">export.invoice.dbk</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="export_dbk_view_form" model="ir.ui.view">
+        <field name="name">DBK</field>
+        <field name="model">export.invoice.dbk</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group style="width:100%;">
+                        <field name="so_id" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="bank_inward_no" />
+                        <field name="consignee" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="export_lot" />
+                        <field name="account_move_id" />
+                    </group>
+                   
+                    <group style="width:50%;">
+                        <field name="home_currency" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="foreign_currency" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="ex_rate" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="date" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="egm_no" />
+                        <field name="egm_date" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="tma" />
+                        <field name="customs_file_name" />
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Product">
+                            <field name="product_details" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="product"/>
+                                    <field name="foreign_currency"/>
+                                    <field name="net_wt"/>
+                                    <field name="box_crate"/>
+                                    <field name="gross_wt"/>
+                                    <field name="rate_per_kg"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Shipping">
+                            <group style="width:50%;">
+                                <field name="sb_no" />
+                                <field name="sb_date" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="sb_port" />
+                            </group>
+                            
+                        </page>
+                        <page string="RODTEP">
+                            <group style="width:50%;">
+                                <field name="rodtep" />
+                                <field name="rodtep_received" />
+                                <field name="rodtep_scroll_no" />
+                                <field name="rodtep_scroll_date" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="rodtep_e_script" />
+                                <field name="rodtep_bill_no" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="rodtep_status" />
+                            </group>
+                        </page>
+                        <page string="DBK">
+                            <group style="width:50%;">
+                                <field name="dbk" />
+                                <field name="dbk_received" />
+                                <field name="dbk_pending" />
+                                <field name="dbk_scroll_no" />
+                                <field name="dbk_scroll_date" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="dbk_status" />
+                            </group>
+                        </page>
+                        <page string="eBRC">
+                            <group style="width:50%;">
+                                <field name="value_brc" />
+                                <field name="brc_no" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="brc_date" />
+                            </group>
+                            <group style="width:50%;">
+                                <field name="brc_status" />
+                            </group>
+                        </page>
+                    </notebook >
+                    <group class="oe_subtotal_footer oe_right">
+                        <p><b>Total CIF Invoice <field name='foreign_currency' nolabel='1'/></b></p><field name="total_invoice_foreign_currency" nolabel='1'/>
+                        <p><b>Total CIF Invoice <field name='home_currency' nolabel='1'/></b></p><field name="total_invoice_home_currency" nolabel='1'/>
+
+                        <field name="freight" />
+                        <field name="fob_value_foreign" />
+                        <field name="fob_value_home" />
+                    </group>
+                </sheet>
+                <div class="o_attachment_preview" options="{types: ['image', 'pdf'], 'order': 'desc'}" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                    <field name="activity_ids" widget="mail_activity" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="export_dbk_view_tree" model="ir.ui.view"> 
+        <field name="name">DBK</field> 
+        <field name="model">export.invoice.dbk</field> 
+        <field name="arch" type="xml"> 
+            <tree >
+                <field name="bank_inward_no" />
+                <field name="so_id" />
+                <field name="account_move_id" />
+                <field name="date" />
+                <field name="sb_no" />
+                <field name="sb_date" />
+                <field name="sb_port" />
+                <field name="rodtep_status" />
+                <field name="dbk_status" />
+                <field name="brc_status" />
+            </tree> 
+        </field> 
+</record>
+</odoo>

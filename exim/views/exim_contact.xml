@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <record id="view_exim_contact" model="ir.ui.view">
+        <field name="name">res.partner.exim</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="prefix"/>
+                <field name="suffix"/>
+            </xpath>
+            <xpath expr="//notebook//page[@name='internal_notes']" position="after">
+                <page string="Bank Detail">
+                    <group style="width:50%;">
+                        <field name="beneficiary_name"/>
+                        <field name="bank_name"/>
+                        <field name="bank_address"/>
+                         <field name="ad_code"/>
+        
+
+                    </group>
+                    <group style="width:50%;">
+                        <field name="branch"/>
+                        <field name="swift_code"/>
+                        <field name="iban"/>
+                        <field name="ifsc_code"/>
+                        <field name="ac_no"/>
+
+
+                    </group>
+                </page>
+                <page string="Intermediatory Bank Detail">
+                    <group style="width:50%;">
+                        <field name="intermediatory_beneficiary_name"/>
+                        <field name="intermediatory_bank_name"/>
+                        <field name="intermediatory_bank_address"/>
+        
+                    </group>
+                    <group style="width:50%;">
+                        <field name="intermediatory_branch"/>
+                        <field name="intermediatory_swift_code"/>
+                        <field name="intermediatory_iban"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

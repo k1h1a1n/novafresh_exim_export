@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+
+    <record id='pi_action' model='ir.actions.act_window'>
+        <field name="name">Proforma Invoice </field>
+        <field name="res_model">exim.pi</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id='pi_kanban_action' model='ir.actions.act_window'>
+        <field name="name">Proforma Invoice </field>
+        <field name="res_model">exim.pi</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <record id='shipments_action_domain' model='ir.actions.act_window'>
+        <field name="name">Shipments</field>
+        <field name="res_model">exim.shipments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('pi_no_id', '=', default_pi_no_id)]</field>
+    </record>
+
+    <menuitem name="Proforma Invoice" id="exim_pi_menu" parent="exim.exim_import_menu" action="pi_action"/>
+    <menuitem name="Performa Invoice" id="exim_import_pi_overview_menu" parent="exim.exim_import_overview_menu" action="pi_kanban_action" sequence="2"/>
+
+    <record id="pi_view_form" model="ir.ui.view">
+        <field name="name">Proforma Invoice</field>
+        <field name="model">exim.pi</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_confirm" type="object" states="draft" confirm="Are you sure you want to confirm this Proforma Invoice" string="Confirm" id="draft_confirm"/>
+                    <button name="button_close" type="object" states="inprogress" confirm="Are you sure you want to close this Proforma Invoice" string="Complete" id="pi_complete"/>
+                    <button name="button_open" type="object" states="complete" confirm="Are you sure you want to open this Proforma Invoice" string="Open" id="pi_open"/>
+
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                <div class="oe_button_box" name="button_box" attrs="{'invisible':[('state','=','draft')]}">
+                    <button class="oe_stat_button" 
+                            name="%(shipments_action_domain)d"
+                            type="action" icon="fa-book" 
+                            context="{'default_pi_no_id': active_id , 'default_consignee_name': consignee_name }">
+                    <field string="Shipments"
+                        name="shipment_count" 
+                        widget="statinfo"/>
+                    </button>
+                </div>
+                  
+                    <group style="width:50%;">
+                            <field name="pi_no" attrs="{'readonly':[('state','=','inprogress')]}"/>
+                            <field name="consignee_name" attrs="{'readonly':[('state','=','inprogress')]}"/>
+                            <field name="shipper_name" attrs="{'readonly':[('state','=','inprogress')]}"/>
+                            <field name="currency_id" attrs="{'readonly':[('state','=','inprogress')]}"/>
+                    </group>
+                    <group style="width:50%;">
+                            <field name="ref_no"/>
+                            <field name="active" invisible="1"/>
+                            
+                    </group>
+                       
+                    
+                    <group style="width:50%;">
+                        <field name="country_of_origin"/>
+                        <field name="port_of_embarkation"/>
+                    </group>
+                    <group style="width:50%;">
+                        <field name="country_of_destination"/>
+                        <field name="port_of_discharge"/>
+                    </group>
+                    <br/>
+                    <notebook colspan="4">
+                                <page string="Product">
+                                    <field name="product_details" widget="one2many_list" >
+                                            <tree editable="bottom">
+                                                <field name="product_id" />
+                                                <field name="uom_id" />
+                                                <field name="net_wt" />
+                                                <field name="qty" />
+                                                <field name="price" />
+                                                <field name="currency_id" />
+                                                <field name="grade" />
+                                                <field name="total" sum="Total Amount" />
+                                            </tree>
+                                    </field>
+                                </page>
+                                <page string="Terms and Condition">
+                                    <label for="payment_terms" />
+                                    <field name="payment_terms" attrs="{'readonly':[('state','=','confirmed')]}"/>
+                                    <label for="incoterms" />
+                                    <field name="incoterms" attrs="{'readonly':[('state','=','confirmed')]}"/>
+                                </page>
+                                 
+                    </notebook>
+                     <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_total" />
+            
+                    </group>
+                </sheet>
+                <div class="o_attachment_preview" options="{types: ['image', 'pdf'], 'order': 'desc'}" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="pi_view_tree" model="ir.ui.view"> 
+        <field name="name">Proforma Invoice</field> 
+            <field name="model">exim.pi</field> 
+            <field name="arch" type="xml"> 
+            <tree>
+                <field name="pi_no"/> 
+                <field name="shipper_name"/>    
+            </tree> 
+        </field> 
+    </record>
+
+    <record id="product_detail_view_child_form" model="ir.ui.view">
+        <field name="name">Product Detail</field>
+        <field name="model">exim.pi.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="product_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="kanban_exim_pi" model="ir.ui.view">
+            <field name="name">Performa Invoice Overview</field>
+            <field name="model">exim.pi</field>
+            <field name="arch" type="xml">
+                <kanban disable_drag_drop_record="true" create="false" default_group_by="state">
+                    <field name="state" readonly="1" />
+                    <field name="pi_no"/>
+                    <templates>
+                    <t t-name="kanban-box">
+                    <div class="oe_kanban_card oe_kanban_global_click">
+                    <field name="pi_no"/>
+                    </div>
+                    </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+
+
+    <record id="exim_pi_trees_search" model="ir.ui.view">
+        <field name="name">exim.pi.search</field>
+        <field name="model">exim.pi</field>
+        <field name="arch" type="xml">
+            <search string="Proforma Invoice">
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"  />
+            </search>
+        </field>
+    </record>
+
+    
+
+
+    
+    
+</odoo>

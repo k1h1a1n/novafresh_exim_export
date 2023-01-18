@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="inherited_modal" inherit_id="web.template">
+        <xpath expr="//h4[@class='modal-title']" position="replace">
+                    <h4 class="modal-title"><t t-raw="title"/><span class="o_subtitle text-muted small">BERM</span></h4>
+        </xpath>
+    </template>
+</odoo>

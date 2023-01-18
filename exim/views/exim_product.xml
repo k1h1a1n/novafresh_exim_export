@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+   <record id="exim_product_inherit" model="ir.ui.view">
+        <field name="name">product.template.exim</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Duties">
+                     <group style="width:50%;">
+                        <field name="duty_bcd_percentage" widget="percentage"/>
+                        <field name="duty_sws_percentage"  widget="percentage"/>
+                        <field name="duty_aidc_percentage" widget="percentage"/>
+                        <field name="duty_gst_percentage" widget="percentage"/>
+                    </group>
+                </page>
+            </xpath>
+            
+
+        </field>
+    </record>
+    <record id="exim_product_hsn_inherit" model="ir.ui.view">
+        <field name="name">product.template.hsn.exim</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="hsn_code"/>
+                <field name="prefix"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    
+</odoo>

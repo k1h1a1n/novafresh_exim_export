@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+    <data>
+        <record  id="consignee_id" model="res.partner.category">
+
+            <field name="name" >Consignee</field>
+            <field name="active" >true</field>
+
+        </record>
+    </data>
+    <data>
+        <record id="shipper_id" model="res.partner.category">
+            <field name="name" >Shipper</field>
+            <field name="active" >true</field>
+        </record>
+    </data>
+     <data>
+        <record id="cha_id" model="res.partner.category">
+            <field name="name" >CHA</field>
+            <field name="active" >true</field>
+        </record>
+    </data>
+    <data>
+        <record id="carrier_id" model="res.partner.category">
+            <field name="name" >Carrier</field>
+            <field name="active" >true</field>
+        </record>
+    </data>
+</odoo>

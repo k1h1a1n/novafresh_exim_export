@@ -1,0 +1,20 @@
+.leftlabel{
+    width:130px;
+    padding-right: 10px;
+}
+.rightlabel{
+    width:90px;
+    padding-right: 10px;
+}
+.span{
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.tablebody{
+    tr{
+        td:nth-child(2){
+            min-width: 250px !important;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" inherit_id="web.assets_backend" name="web_window_title assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/web_window_title/static/src/js/web_window_title.js"/>
+            </xpath>
+            <xpath expr="//script[@src='/mail/static/src/widgets/messaging_menu/messaging_menu.js']" position="replace">
+                <script type="text/javascript" src="/web_window_title/static/src/js/messaging_menu.js"/>
+            </xpath>
+        </template>
+         <template id="assets_backend_login" inherit_id="web.login_layout" >
+            <xpath expr="//a[@href='https://www.odoo.com?utm_source=db&amp;utm_medium=auth']" position="replace">
+                <a href="https://www.berm.in" target="_blank">Powered by <span>BERM</span></a>
+            </xpath>
+        </template>
+        <template id="activity_mail_inherit" inherit_id="mail.mail_notification_light" >
+            <xpath expr="//img" position="replace">
+                
+            </xpath>
+
+            <xpath expr="//a[@target='_blank']" position="replace">
+              <span>BERM</span>
+            </xpath>
+        </template>
+        <template id="message_notification_email_inherit" inherit_id="mail.message_notification_email" >
+            <xpath expr="//img" position="replace">
+             
+            </xpath>
+            <xpath expr="//p[@style='color: #555555; margin-top:32px;']" position="replace">
+                
+            </xpath>
+           
+        </template>
+    </data>
+</odoo>
+

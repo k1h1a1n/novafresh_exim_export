@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <record id='exim_igm_action' model='ir.actions.act_window'>
+        <field name="name">IGM</field>
+        <field name="res_model">exim.shipments.igm</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+    <record id="igm_view_form" model="ir.ui.view">
+        <field name="name">IGM</field>
+        <field name="model">exim.shipments.igm</field>
+        <field name="arch" type="xml">
+             <form>
+                <sheet>
+                        <group  style="width:50%;">
+                            <field name="shipment_no" />
+                        </group>
+                        <br/>
+                        <group  style="width:50%;">
+                            <field name="foreign_currency" />
+                            <field name="lot_no" />
+                            <field name="boe_no" />
+                            <field name="igm_no" />
+                            <field name="ex_rate" />  
+                            <!-- <field name="ci_product_line_item" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}" />                             -->
+                        </group>
+                         <group  style="width:50%;">
+                            <field name="home_currency"/>
+                            <field name="grade"/>
+                            <field name="boe_date"/>
+                            <field name="igm_date"/>
+                            <field name="inward_date"/>
+                            <field name="quality"/>
+                            <field name="incoterms" readonly="1"/>
+                            
+                            <!-- <field name="box_qty"/> -->
+                            <field name="release_visible" invisible="1"/>
+                        </group>
+                        <notebook colspan="4">
+                            <!-- <page string="CIF"> 
+                            <group  style="width:50%;">
+                                <field name="invoice_value"/>
+                                <field name="invoice_value_inr"/>
+                                <field name="insurance"/>
+                            </group>
+                            <group  style="width:50%;">
+                                <field name="freight"/>
+                                <field name="freight_inr"/>
+                            </group>
+                            
+                            </page>
+                            <page string="Duty"> 
+                                <group  style="width:50%;">
+                                    <field name="duty_bcd"/>
+                                    <field name="duty_sws"/>
+                                    <field name="shipping_line"/>
+                                    <field name="cfs"/>
+                                    <field name="fssai"/>
+                                    <field name="pq"/>
+                                    <field name="cha"/>
+                                </group>
+                                
+                                <group  style="width:50%;">
+                                    <field name="duty_aidc"/>
+                                    <field name="duty_gst"/>
+                                    
+                                    <field name="others"/>
+                                </group>
+                            </page> -->
+
+                            <!-- CIF & DUTY LINE -->
+
+
+                            <page string="CIF Line">
+                                        <field  name="cif_details" widget="one2many_list" >
+                                                <tree editable="bottom">
+                                                   <field name="incoterms" invisible="1"  />
+                                                   <field name="ci_product_line_item"/>
+                                                   <field name="qty" sum="Total Net wt"/>
+                                                   <field name="qty_box" sum="Total Box"/>
+                                                   <field name="foreign_currency" invisible="1" />
+                                                   <field name="home_currency"  invisible="1" />
+                                                   <field name="invoice_value"  sum="Invoice Total" />
+                                                   <field name="invoice_value_inr" sum="Invoice Total INR"/>
+                                                   <field name="insurance"  sum="Insurance Total"  attrs="{'readonly':[('incoterms','in',('cif'))]}"/>
+                                                   <field name="freight"  sum="Freight Total" attrs="{'readonly':[('incoterms','in',('cif'))]}"/>
+                                                   <field name="freight_inr" sum="Freight Total"/>
+                                                   <field name="cif" sum="CIF Total"/>     
+
+                                                </tree>
+                                        </field>
+                            </page>
+                            <page string="Duty Line">
+                                        <field  name="duty_details" widget="one2many_list" >
+                                                <tree editable="bottom">
+                                                   <field name="ci_product_line_item"/>
+                                                   <field name="duty_bcd" sum="Total" />
+                                                   <field name="duty_sws" sum="Total" />
+                                                   <field name="duty_aidc" sum="Total" />
+                                                   <field name="duty_gst" sum="Total" />
+                                                   <field name="shipping_line" sum="Total" />
+                                                   <field name="penalty" sum="Total" />
+                                                   <field name="others" sum="Total" />
+                                                   <field name="cfs" sum="Total" />
+                                                   <field name="fssai" sum="Total" />
+                                                   <field name="pq" sum="Total" />
+                                                   <field name="cha" sum="Total" />
+                                                   <field name="transportation_cost" sum="Transportation Total" />
+                                                   <field name="total" sum="Total" />
+
+                                                </tree>
+                                        </field>
+                            </page>
+                            
+
+                            <!-- CIF & DUTY LINE -->
+                            <page string="Container"> 
+                        
+                                        <field  name="container_details" widget="one2many_list" >
+                                                <tree editable="bottom">
+                                                    <field name="container_no"/>
+                                                    <field name="container_weight"/>
+                                                    
+                                                    <field name="port_in_date"/>
+                                                    <field name="port_out_date"/>
+                                                    <field name="port_time_diff"/>               
+                                                    <field name="cfs_in_date"/>
+                                                    <field name="cfs_out_date"/>
+                                                    <field name="cfs_time_diff"/>
+                                                    <field name="transporter_name"/>
+                                                    <field name="vehicle_no"/>
+                                                    <field name="ooc"/>
+                                                    <field name="release"/>
+                                                </tree>
+                                        </field>
+                                  
+
+                                <!-- <group style="width:50%;" >
+                                    <field name="ooc"/>
+                                    <field name="port_in_date"/>
+                                    <field name="port_out_date"/>
+                                    <field name="cfs_in_date"/>
+                                    <field name="cfs_out_date"/>
+                                </group> -->
+                           
+                            
+                            </page>
+                            <page string="Release" attrs="{'invisible':[('release_visible','=',False)]}">
+                            <group style="width:50%;" >
+                              <field name="claim_amount" />
+                              <field name="claim_settlement_amount" />
+                              <field name="claim_settled" />
+                              <field name="credit_note" />
+                              <field name="warehouse"/>
+                              <field name="br"/>
+                              <field name="final_noc"/>
+                             </group>
+                             <group style="width:50%;" >
+                                <field name="sum_net_wt" />
+                                <field name="actual_weight" />
+                                <field name="sample_weight" />
+                                <field name="unloading_weight" />
+                                <field name="weight_diff" />
+                             </group>
+
+
+                                
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                                <field name="cif_value" />
+                                <field name="landing_cost" />
+                                <field name="per_box_cost" />
+                                <field name="pb_cost" />
+                        </group>
+                </sheet>
+                <div class="o_attachment_preview" options="{types: ['image', 'pdf'], 'order': 'desc'}" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>
+             </form>
+        </field>
+    </record>
+
+    <record id="imports_view_tree" model="ir.ui.view"> 
+        <field name="name">IGM</field> 
+            <field name="model">exim.shipments.igm</field> 
+            <field name="arch" type="xml"> 
+            <tree > 
+                <field name="shipment_no"/>
+               
+            </tree> 
+        </field> 
+    </record>
+
+</odoo>

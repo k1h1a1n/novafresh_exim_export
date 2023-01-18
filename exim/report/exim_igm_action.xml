@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="exim_igm_action_report" model="ir.actions.report">
+        <field name="name">IGM Report PDF</field>
+        <field name="model">exim.shipments.igm</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">exim.igm_report_template</field>
+        <field name="report_file">exim.igm_report_template</field>
+        <field name="binding_model_id" ref="model_exim_shipments_igm"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="exim_igm_excel_action_report" model="ir.actions.report">
+        <field name="name">IGM Report Excel</field>
+        <field name="model">exim.shipments.igm</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">exim.igm_report_template_excel</field>
+        <field name="report_file">exim.igm_report_template_excel</field>
+        <field name="binding_model_id" ref="model_exim_shipments_igm"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

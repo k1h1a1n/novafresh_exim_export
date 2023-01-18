@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="invoice_report_inherited_bankdetails" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='total']" position="after">
+            <t t-foreach="request.env.ref('base.main_partner')" t-as="c">
+                <!-- <tr style="border:1px solid black;  text-align:left;">
+                    <td width="20%" style="text-align:left;">
+                        <span t-field="c.swift_code"/>
+                    </td>
+                </tr> -->
+
+
+                <div style='margin-top:30px;'>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <td>
+                              Bank Details
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody tablebody">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <label class="leftlabel">Beneficiary Name</label> :                                        <span class="span" t-field="c.beneficiary_name"/>
+                                    </div>
+                                </td>
+                                <td>
+
+                                    <div>
+                                        <label class="rightlabel">Branch</label> :                                        <span class="span" t-field="c.branch"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                    <div>
+                                        <label class="leftlabel">Bank Name</label> :                                        <span class="span" t-field="c.bank_name"/>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div>
+                                        <label class="rightlabel">Swift Code</label> :                                        <span class="span" t-field="c.swift_code"/>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                    <div>
+                                        <label class="leftlabel">Bank Address</label> :                                        <span class="span" t-field="c.bank_address"/>
+
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div>
+                                        <label class="rightlabel">IBAN</label> :                                        <span class="span" t-field="c.iban"/>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </t>
+        </xpath>
+    </template>
+    <template id="invoice_report_inherited_bankdetails_scss" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/exim_export/static/src/css/report.scss"></link>
+        </xpath>
+    </template>
+</odoo>

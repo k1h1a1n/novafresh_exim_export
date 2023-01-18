@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <record id="export_terminal_conf_view_form" model="ir.ui.view">
+        <field name="name">Terminal</field>
+        <field name="model">account.invoice.report</field>
+        <field name="arch" type="xml"> 
+            <form>
+                    <group>
+                        <field name="port_name"/>
+                    </group>
+            </form>
+        </field> 
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+    <menuitem name="Export" id="export_base_menu" />
+    <menuitem name="Sales Order"  id="export_so_menu" parent="export_base_menu" action="export_sale_order_view" sequence="1" />
+    <menuitem name="Shipment" id="export_shipment_menu" parent="export_base_menu"  action="export_shipment_view_action" sequence="2" /> 
+    <menuitem id="sale.sale_menu_root" active="False"/>
+    <menuitem name="Ports" id="export_ports_menu" parent="export_base_menu"  action="exim.ports_conf_action" /> 
+    <menuitem name="DBK" id="export_dbk_menu" parent="export_base_menu"  action="export_dbk_action" sequence="3"/> 
+
+
+    
+
+</odoo>

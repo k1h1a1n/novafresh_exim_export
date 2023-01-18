@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='export_lot' model='ir.actions.act_window'>
+        <field name="name">LOT</field>
+        <field name="res_model">export.lot</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="export_lot_view_form" model="ir.ui.view">
+        <field name="name">Lot</field>
+        <field name="model">export.lot</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group style="width:50%;">
+                        <field name="so_id" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="lot_no" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="ports" />
+                    </group>
+                     <group style="width:50%;">
+                        <field name="port_of_discharge" />
+                    </group>
+                    <group style="width:100%;">
+                        <field name="terminal_name" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="gate_open" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="gate_closed" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="actual_gate_open" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="actual_gate_closed" />
+                    </group>
+
+                    <group style="width:50%;">
+                        <field name="container_pickup_time" />
+                        <field name="gate_in_time" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="actual_gatein_time" />
+                        <field name="vessel_load_time" />
+                    </group>
+
+                    <group style="width:50%;">
+                        <field name="ship_arrival" />
+                    </group>
+                    <group style="width:100%;">
+                        <field name="ship_name" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="vgm_cutoff" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="si_cutoff" />
+                    </group>
+                    <group style="width:100%;">
+                        <field name="doc_cutoff" />
+                    </group>
+
+                    <group style="width:50%;">
+                        <field name="do_no" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="do_date" />
+                    </group>
+                    <group style="width:50%;">
+                        <field name="sb_no" invisible="1" />
+                        <field name="sb_date" invisible="1" />
+                    </group>
+
+
+                </sheet>
+                <div class="o_attachment_preview" options="{types: ['image', 'pdf'], 'order': 'desc'}" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="export_lot_view_tree" model="ir.ui.view">
+        <field name="name">LOT</field>
+        <field name="model">export.lot</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="so_id"/>
+                <field name="lot_no" />
+
+            </tree>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_exim_export_lot_admin,export.lot,model_export_lot,group_exim_export_admin,1,1,1,1
+acl_export_exim_shipment,export.exim.shipment,model_export_exim_shipment,group_exim_export_admin,1,1,1,1
+acl_export_exim_container,export.exim.container,model_export_exim_container,group_exim_export_admin,1,1,1,1
+acl_configuration_terminal_child,configuration.terminal.child,model_configuration_terminal_child,group_exim_export_admin,1,1,1,1
+acl_configuration_port_child,configuration.port.child,model_configuration_port_child,group_exim_export_admin,1,1,1,1
+acl_export_invoice_dbk,export.invoice.dbk,model_export_invoice_dbk,group_exim_export_admin,1,1,1,1
+acl_export_invoice_dbk_product,export.invoice.dbk.product,model_export_invoice_dbk_product,group_exim_export_admin,1,1,1,1
+acl_sale_order_costing,sale.order.costing,model_sale_order_costing,group_exim_export_admin,1,1,1,1
+acl_sale_order_costing_transport,sale.order.costing.transport,model_sale_order_costing_transport,group_exim_export_admin,1,1,1,1
+acl_exim_expor_port_parent,configuration.port.parent,exim.model_configuration_port_parent,group_exim_export_admin,1,1,1,1
+acl_exim_export_port_child,configuration.port.child,exim.model_configuration_port_child,group_exim_export_admin,1,1,1,1
