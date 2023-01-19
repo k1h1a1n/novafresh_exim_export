@@ -84,10 +84,10 @@ class IgmXlsx(models.AbstractModel):
             {"name": "Final Noc", "value": igm_data.final_noc},
         ]
         sheet_0 = workbook.add_worksheet("Shipment"[:31])
-        sheet_1 = workbook.add_worksheet("CIF Line"[:31])
-        sheet_2 = workbook.add_worksheet("Duty Line"[:31])
-        sheet_3 = workbook.add_worksheet("Container"[:31])
-        sheet_4 = workbook.add_worksheet("Release"[:31])
+        # sheet_1 = workbook.add_worksheet("CIF Line"[:31])
+        # sheet_2 = workbook.add_worksheet("Duty Line"[:31])
+        # sheet_3 = workbook.add_worksheet("Container"[:31])
+        # sheet_4 = workbook.add_worksheet("Release"[:31])
         columns = [
             column_names_0,
             column_names_1,
@@ -95,18 +95,20 @@ class IgmXlsx(models.AbstractModel):
             column_names_3,
             column_names_4,
         ]
-        sheets = [sheet_0, sheet_1, sheet_2, sheet_3, sheet_4]
+        sheets = [sheet_0, sheet_0, sheet_0, sheet_0, sheet_0]
+        # sheet_0.write(0, col_num, column_name["name"])
         for i in range(5):
             for col_num, column_name in enumerate(columns[i]):
-                sheets[i].write(0, col_num, column_name["name"])
-                if i == 0 or i == 4:
+                if i == 0:
+                    sheets[i].write(0, col_num, column_name["name"])
                     sheets[i].write(1, col_num, column_name["value"])
                 if i == 1:
-                    row = 0
+                    row = 3
                     for lines in igm_data.cif_details:
                         row = row + 1
                         x = column_name["value"]
                         y = column_name["name"]
+                        sheets[i].write(3, col_num, column_name["name"])
                         if y == "CI Line Item":
                             sheets[i].write(
                                 row, col_num, lines.ci_product_line_item.product.name
@@ -114,11 +116,12 @@ class IgmXlsx(models.AbstractModel):
                         else:
                             sheets[i].write(row, col_num, getattr(lines, x))
                 if i == 2:
-                    row = 0
+                    row = 10
                     for lines in igm_data.duty_details:
                         row = row + 1
                         x = column_name["value"]
                         y = column_name["name"]
+                        sheets[i].write(10, col_num, column_name["name"])
                         if y == "CI Line Item":
                             sheets[i].write(
                                 row, col_num, lines.ci_product_line_item.product.name
@@ -126,9 +129,14 @@ class IgmXlsx(models.AbstractModel):
                         else:
                             sheets[i].write(row, col_num, getattr(lines, x))
                 if i == 3:
-                    row = 0
+                    row = 17
                     for lines in igm_data.container_details:
                         row = row + 1
                         x = column_name["value"]
                         y = column_name["name"]
+                        sheets[i].write(17, col_num, column_name["name"])
                         sheets[i].write(row, col_num, str(getattr(lines, x)))
+
+                if i == 4:
+                    sheets[i].write(22, col_num, column_name["name"])
+                    sheets[i].write(23, col_num, column_name["value"])
